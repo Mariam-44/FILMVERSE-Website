@@ -55,31 +55,31 @@ export default function Login() {
   return (
     <>
       <div
-        className="flex items-center justify-center min-h-screen bg-cover bg-center"
+        className="flex items-center justify-center min-h-screen bg-cover bg-center p-4"
         style={{ backgroundImage: `url(${posters})` }}
       >
         <form
-          className="mt-20 bg-zinc-900 bg-opacity-60 shadow-2xl rounded-2xl w-1/3 overflow-hidden"
+          className="mt-20 bg-zinc-900 bg-opacity-60 shadow-2xl rounded-2xl w-full md:w-4/5 lg:w-2/3 xl:w-1/3 mx-4 overflow-hidden"
           onSubmit={formik.handleSubmit}
         >
-          <div className="px-8 py-10 md:px-10">
-            <h2 className="text-4xl font-extrabold text-center text-zinc-800 dark:text-white">
+          <div className="px-6 py-8 md:px-8 lg:px-10">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center text-zinc-800 dark:text-white">
               Welcome Back!
             </h2>
-            <p className="text-center text-zinc-600 dark:text-zinc-400 mt-3">
+            <p className="text-center text-zinc-600 dark:text-zinc-400 mt-2 md:mt-3 text-sm md:text-base">
               We missed you, sign in to continue.
             </p>
 
-            <div className="mt-2">
+            <div className="mt-4 md:mt-6">
               <label
-                className="mb-3 text-sm font-medium text-zinc-600 dark:text-zinc-200"
+                className="mb-1 md:mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-200"
                 htmlFor="email"
               >
                 Email
               </label>
               <input
                 placeholder="abc@example.com"
-                className="form-control w-full px-4 py-2 mt-2 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400"
+                className="form-control w-full px-3 py-2 md:px-4 md:py-2 mt-1 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400 text-sm md:text-base"
                 name="email"
                 id="email"
                 type="email"
@@ -89,27 +89,27 @@ export default function Login() {
                 onChange={formik.handleChange}
               />
               {formik.errors.email && formik.touched.email && (
-                <p className="text-red-500 text-sm mt-2 ps-2">
+                <p className="text-red-500 text-xs md:text-sm mt-1 ps-2">
                   *{formik.errors.email}
                 </p>
               )}
               {errorMsg && (
-                  <p className="text-red-500 text-sm mt-2 ps-2">
-                    *{errorMsg}
-                  </p>
-                )}
+                <p className="text-red-500 text-xs md:text-sm mt-1 ps-2">
+                  *{errorMsg}
+                </p>
+              )}
             </div>
 
-            <div className="mt-2">
+            <div className="mt-4 md:mt-6">
               <label
-                className="mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-200"
+                className="mb-1 md:mb-2 text-sm font-medium text-zinc-600 dark:text-zinc-200"
                 htmlFor="password"
               >
                 Password
               </label>
               <input
                 placeholder="••••••••"
-                className="form-control w-full px-4 py-2 mt-2 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400"
+                className="form-control w-full px-3 py-2 md:px-4 md:py-2 mt-1 text-zinc-800 bg-white border-2 rounded-lg dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-opacity-50 focus:outline-none focus:ring focus:ring-blue-400 text-sm md:text-base"
                 name="password"
                 id="password"
                 type="password"
@@ -118,20 +118,20 @@ export default function Login() {
                 onChange={formik.handleChange}
               />
               {formik.errors.password && formik.touched.password && (
-                <p className="text-red-500 text-sm mt-2 ps-2">
+                <p className="text-red-500 text-xs md:text-sm mt-1 ps-2">
                   *{formik.errors.password}
                 </p>
               )}
-               {errorMsg && (
-                  <p className="text-red-500 text-sm mt-2 ps-2">
-                    *{errorMsg}
-                  </p>
-                )}
+              {errorMsg && (
+                <p className="text-red-500 text-xs md:text-sm mt-1 ps-2">
+                  *{errorMsg}
+                </p>
+              )}
             </div>
 
-            <div className="mt-10">
+            <div className="mt-8 md:mt-10">
               <button
-                className="w-full px-4 py-3 tracking-wide text-white bg-primary-600 hover:bg-primary-700 rounded-lg focus:outline-none focus:ring-4 focus:ring-primary-400 dark:focus:ring-primary-800"
+                className="w-full px-4 py-2 md:py-3 tracking-wide text-white bg-primary-600 hover:bg-primary-700 rounded-lg focus:outline-none focus:ring-4 focus:ring-primary-400 dark:focus:ring-primary-800 text-sm md:text-base"
                 type="submit"
               >
                 Login
@@ -139,10 +139,10 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="px-8 py-4">
-            <div className="text-sm text-slate-500 text-center">
+          <div className="px-6 py-4 md:px-8">
+            <div className="text-xs md:text-sm text-slate-500 text-center">
               Don't have an account?
-              <Link to="/signup" className="font-medium text-blue-700">
+              <Link to="/signup" className="font-medium text-blue-700 ml-1">
                 Sign up
               </Link>
             </div>
