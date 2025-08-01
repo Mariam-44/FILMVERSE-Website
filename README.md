@@ -6,15 +6,13 @@ A modern, full-stack movie and TV show discovery platform built with React, feat
 
 **Experience Filmverse live:** [https://filmverse-website.vercel.app/](https://filmverse-website.vercel.app/)
 
-## 📄 Project Screenshots
-
-[View Website Screenshots ](https://drive.google.com/file/d/1qHZRGW9utktyuNqJeOYdH8jgd8C2bnZu/view?usp=sharing)
-
-Try it out! Browse movies, create an account, and explore all features without any setup required.
-
 ## 🏠 Project Overview
 
 Filmverse is a comprehensive entertainment platform that allows users to discover, track, and manage their favorite movies and TV shows. The application provides a seamless experience from browsing trending content to maintaining personal watchlists and user profiles, all wrapped in a beautiful, responsive interface with smooth animations.
+
+## 📄 Project Screenshots
+
+[View Website Screenshots ](https://drive.google.com/file/d/1qHZRGW9utktyuNqJeOYdH8jgd8C2bnZu/view?usp=sharing)
 
 ## ✨ Features
 
