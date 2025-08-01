@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 export default function PopularMoviesSlider() {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const headers = {
+  
+  const token = import.meta.env.VITE_TMDB_TOKEN;
+const headers = {
     accept: "application/json",
     Authorization: `Bearer ${token}`,
   };
-  const token = import.meta.env.VITE_TMDB_TOKEN;
-
   async function getPopularMovies() {
     const options = {
       method: "GET",
