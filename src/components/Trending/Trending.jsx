@@ -9,23 +9,21 @@ import axios from "axios";
 export default function Trending() {
   const [movies, setMovies] = useState([]);
   const token = import.meta.env.VITE_TMDB_TOKEN;
+    const headers = {
+    accept: "application/json",
+    Authorization: `Bearer ${token}`,
+  };
 
   async function getTrendingMovies() {
     try {
-      const res = await axios.get(
-        "https://api.themoviedb.org/3/trending/movie/week?language=en-US",
-        {
-          headers: {
-            accept: "application/json",
-              Authorization:
-          `Bearer ${token}`,
-          },
-        }
-      );
-
-      setMovies(res.data.results?.slice(0, 9) || []);
+      const options = {
+        url: "https://api.themoviedb.org/3/trending/movie/week?language=en-US",
+        headers,
+      };
+      const { data } = await axios.request(options);
+      setMovies(data.results?.slice(0, 9) || []);
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Error :", error);
     }
   }
 

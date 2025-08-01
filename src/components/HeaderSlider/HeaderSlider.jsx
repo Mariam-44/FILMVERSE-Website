@@ -9,18 +9,17 @@ import { Link } from "react-router-dom";
 export default function PopularMoviesSlider() {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const headers = {
+    accept: "application/json",
+    Authorization: `Bearer ${token}`,
+  };
   const token = import.meta.env.VITE_TMDB_TOKEN;
 
   async function getPopularMovies() {
     const options = {
       method: "GET",
       url: "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          `Bearer ${token}`,
-      },
+      headers,
     };
 
     try {

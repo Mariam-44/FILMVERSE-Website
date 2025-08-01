@@ -22,62 +22,61 @@ export default function CardDetails() {
   const token = import.meta.env.VITE_TMDB_TOKEN;
   const headers = {
     accept: "application/json",
-       Authorization:
-          `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
   };
 
   async function getDetails() {
     try {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/${type}/${id}?language=en-US`,
-        { headers }
-      );
+      const options = {
+        url: `https://api.themoviedb.org/3/${type}/${id}?language=en-US`,
+        headers,
+      };
+      const { data } = await axios.request(options);
       setItemDetails(data);
     } catch (error) {
       console.log("Error getting details:", error);
     }
   }
-
   async function getTrailer() {
     try {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/${type}/${id}/videos?language=en-US`,
-        { headers }
-      );
-
+      const options = {
+        url: `https://api.themoviedb.org/3/${type}/${id}/videos?language=en-US`,
+        headers,
+      };
+      const { data } = await axios.request(options);
       const trailer = data.results.find(
         (video) => video.type === "Trailer" && video.site === "YouTube"
       );
-
       if (trailer) {
         setTrailerKey(trailer.key);
       }
     } catch (error) {
-      console.log("Error :", error);
+      console.log("Error getting details:", error);
     }
   }
 
-  async function getCast() {
+    async function getCast() {
     try {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
-        { headers }
-      );
-      setCast(data.cast);
+      const options = {
+        url: `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
+        headers,
+      };
+      const { data } = await axios.request(options);
+     setCast(data.cast);
     } catch (error) {
-     
+      console.log("Error getting details:", error);
     }
   }
-
-  async function getRecommendations() {
+    async function getRecommendations() {
     try {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/${type}/${id}/recommendations?language=en-US&page=1`,
-        { headers }
-      );
-      setRecommendations(data.results);
+      const options = {
+        url: `https://api.themoviedb.org/3/${type}/${id}/recommendations?language=en-US&page=1`,
+        headers,
+      };
+      const { data } = await axios.request(options);
+     setRecommendations(data.results);
     } catch (error) {
-      
+      console.log("Error getting details:", error);
     }
   }
 
@@ -92,10 +91,10 @@ export default function CardDetails() {
     if (!itemDetails) return;
 
     if (isInWishlist(itemDetails.id)) {
-      removeFromWishlist(itemDetails.id); 
+      removeFromWishlist(itemDetails.id);
     } else {
       addToWishlist({
-        itemId: itemDetails.id, 
+        itemId: itemDetails.id,
         title: itemDetails.title || itemDetails.name,
         poster_path: itemDetails.poster_path,
         type: type,

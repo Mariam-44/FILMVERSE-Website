@@ -17,18 +17,19 @@ export default function Profile() {
           `Bearer ${token}`,
   };
 
-  async function fetchTrending() {
+  async function getTrending() {
     try {
-      const { data } = await axios.get(
-        "https://api.themoviedb.org/3/trending/movie/day",
-        { headers, params: { language: "en-US" } }
-      );
+      const options = {
+        url:  "https://api.themoviedb.org/3/trending/movie/day",
+        headers,
+        params: { language: "en-US"},
+      };
+      const { data } = await axios.request(options);
       setTrending(data.results);
     } catch (error) {
-      console.error("Error fetching trending:", error);
+      console.log("Error :", error);
     }
   }
-
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -40,7 +41,7 @@ export default function Profile() {
     });
 
     getWishlist();
-    fetchTrending();
+    getTrending();
 
     return () => unsubscribe();
   }, []);

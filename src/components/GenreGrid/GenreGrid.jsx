@@ -7,12 +7,14 @@ import "aos/dist/aos.css";
 export default function GenreGrid() {
   const [Geners, setGeners] = useState([]);
   const token = import.meta.env.VITE_TMDB_TOKEN;
+  const headers = {
+    accept: "application/json",
+    Authorization: `Bearer ${token}`,
+  };
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   }, []);
-
-
 
   async function GenresPosters() {
     const genreOptions = {
@@ -20,16 +22,15 @@ export default function GenreGrid() {
       method: "GET",
       headers: {
         accept: "application/json",
-           Authorization:
-          `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
     try {
-      const { data: genreData } = await axios.request(genreOptions);
+      const { data } = await axios.request(genreOptions);
 
       const allowedIds = [28, 12, 16, 35, 80, 27];
-      const genres = genreData.genres.filter((genre) =>
+      const genres = data.genres.filter((genre) =>
         allowedIds.includes(genre.id)
       );
 
@@ -39,15 +40,11 @@ export default function GenreGrid() {
         const movieOptions = {
           url: `https://api.themoviedb.org/3/discover/movie?with_genres=${genre.id}&sort_by=popularity.desc`,
           method: "GET",
-          headers: {
-            accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzhhNGY3ZmZmYjk3ZWU1NzRmMzdjMDI4MjdhODgzYyIsIm5iZiI6MTc1MzgxMzg4Mi4xNjIsInN1YiI6IjY4ODkxMzdhNDNlODNmMjE5Y2VkMDIwZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G_3ZKGFydbPSEpsdfs0Iho9hriJ4cNgSMe9nwgkIfiA",
-          },
+          headers,
         };
 
-        const { data: movieData } = await axios.request(movieOptions);
-        const genreMovies = movieData.results;
+        const { data } = await axios.request(movieOptions);
+        const genreMovies = data.results;
         let ImgPath;
 
         if (genre.name === "Comedy") {
@@ -60,9 +57,7 @@ export default function GenreGrid() {
 
         return {
           ...genre,
-          image: ImgPath
-            ? `https://image.tmdb.org/t/p/w780${ImgPath}`
-            : null,
+          image: ImgPath ? `https://image.tmdb.org/t/p/w780${ImgPath}` : null,
         };
       });
 
