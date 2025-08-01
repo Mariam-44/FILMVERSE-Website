@@ -53,7 +53,7 @@ export default function GenreGrid() {
         if (genre.name === "Comedy") {
           ImgPath = genreMovies[5]?.backdrop_path;
         } else if (genre.name === "Horror") {
-          ImgPath = genreMovies[12]?.backdrop_path;
+          ImgPath = genreMovies[11]?.backdrop_path;
         } else {
           ImgPath = genreMovies[14]?.backdrop_path;
         }
