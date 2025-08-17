@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useWatchLater } from "../../context/WatchLater.Context";
-import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/User.context";
-import NotAuth from "../../components/NotAuth/NotAuth";
+import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import WatchLaterLoader from "../../components/watchLaterLoader/WatchLaterLoader";
+
 
 export default function WatchLater() {
   const { watchLater, removeFromWatchLater, loading } = useWatchLater();
@@ -45,7 +44,7 @@ export default function WatchLater() {
   if (watchLater.length === 0) {
     return (
       <div>
-        <WatchLaterLoader />
+        <WatchLaterLoader/>
       </div>
     );
   }
