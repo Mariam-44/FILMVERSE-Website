@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 import { Player } from "@lottiefiles/react-lottie-player";
 import watchLoad from "../../assets/imgs/Play Button (1).json";
 import { Link } from "react-router-dom";
-
-export default function WatchLaterLoader() {
+export default function PlayBtnLoader() {
   return (
+    <>
     <div className="flex flex-col items-center justify-center min-h-screen text-center p-6">
       <Player
         autoplay
@@ -26,5 +26,7 @@ export default function WatchLaterLoader() {
         Discover Movies
       </Link>
     </div>
-  );
+      
+    </>
+  )
 }
