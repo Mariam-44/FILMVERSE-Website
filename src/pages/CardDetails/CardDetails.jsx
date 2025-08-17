@@ -9,6 +9,7 @@ import "swiper/css/scrollbar";
 import { Scrollbar } from "swiper/modules";
 import CardSlider from "../../components/CardSlider/CardSlider";
 import { useWishlist } from "../../context/Favorite.Context";
+import { useWatchLater } from "../../context/WatchLater.Context";
 
 export default function CardDetails() {
   const [itemDetails, setItemDetails] = useState(null);
@@ -18,6 +19,8 @@ export default function CardDetails() {
   const { id, type } = useParams();
 
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { addToWatchLater, removeFromWatchLater, isInWatchLater } =
+    useWatchLater();
 
   const token = import.meta.env.VITE_TMDB_TOKEN;
   const headers = {
@@ -55,26 +58,26 @@ export default function CardDetails() {
     }
   }
 
-    async function getCast() {
+  async function getCast() {
     try {
       const options = {
         url: `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
         headers,
       };
       const { data } = await axios.request(options);
-     setCast(data.cast);
+      setCast(data.cast);
     } catch (error) {
       console.log("Error getting details:", error);
     }
   }
-    async function getRecommendations() {
+  async function getRecommendations() {
     try {
       const options = {
         url: `https://api.themoviedb.org/3/${type}/${id}/recommendations?language=en-US&page=1`,
         headers,
       };
       const { data } = await axios.request(options);
-     setRecommendations(data.results);
+      setRecommendations(data.results);
     } catch (error) {
       console.log("Error getting details:", error);
     }
@@ -94,6 +97,21 @@ export default function CardDetails() {
       removeFromWishlist(itemDetails.id);
     } else {
       addToWishlist({
+        itemId: itemDetails.id,
+        title: itemDetails.title || itemDetails.name,
+        poster_path: itemDetails.poster_path,
+        type: type,
+      });
+    }
+  };
+
+  const handleWatchLaterClick = () => {
+    if (!itemDetails) return;
+
+    if (isInWatchLater(itemDetails.id)) {
+      removeFromWatchLater(itemDetails.id);
+    } else {
+      addToWatchLater({
         itemId: itemDetails.id,
         title: itemDetails.title || itemDetails.name,
         poster_path: itemDetails.poster_path,
@@ -165,9 +183,17 @@ export default function CardDetails() {
                     <div className="bg-primary-400 text-gray-200 font-semibold p-1.5 sm:p-2 px-2 sm:px-3 rounded-md sm:rounded-lg hover:bg-primary-600 cursor-pointer text-sm sm:text-base">
                       Watch Now
                     </div>
-                    <div className="border-gray-300 border text-gray-200 font-semibold p-1.5 sm:p-2 px-2 sm:px-3 rounded-md sm:rounded-lg hover:bg-slate-100 hover:text-bgColor cursor-pointer text-sm sm:text-base">
-                      Watch Later
+                    <div
+                      className={`border border-gray-300 font-semibold p-1.5 sm:p-2 px-2 sm:px-3 rounded-md sm:rounded-lg cursor-pointer text-sm sm:text-base ${
+                        isInWatchLater(itemDetails.id)
+                          ? "bg-textColor text-bgColor"
+                          : "text-gray-200 hover:bg-slate-100 hover:text-bgColor"
+                      }`}
+                      onClick={handleWatchLaterClick}
+                    >
+                       Watch Later
                     </div>
+
                     <i
                       className={`${
                         isInWishlist(itemDetails.id)

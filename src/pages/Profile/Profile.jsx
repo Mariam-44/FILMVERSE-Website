@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWishlist } from "../../context/Favorite.Context";
+import { useWatchLater } from "../../context/WatchLater.Context";
 import CardSlider from "../../components/CardSlider/CardSlider";
 import axios from "axios";
 import ProfileSideBar from "../../components/ProfileSideBar/ProfileSideBar";
@@ -10,19 +11,20 @@ export default function Profile() {
   const [userName, setUserName] = useState("");
 
   const { wishlist, getWishlist } = useWishlist();
+  const { watchLater, getWatchLater } = useWatchLater();
+
   const token = import.meta.env.VITE_TMDB_TOKEN;
   const headers = {
     accept: "application/json",
-      Authorization:
-          `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
   };
 
   async function getTrending() {
     try {
       const options = {
-        url:  "https://api.themoviedb.org/3/trending/movie/day",
+        url: "https://api.themoviedb.org/3/trending/movie/day",
         headers,
-        params: { language: "en-US"},
+        params: { language: "en-US" },
       };
       const { data } = await axios.request(options);
       setTrending(data.results);
@@ -41,6 +43,7 @@ export default function Profile() {
     });
 
     getWishlist();
+    getWatchLater();
     getTrending();
 
     return () => unsubscribe();
@@ -112,20 +115,29 @@ export default function Profile() {
                 <CardSlider Media={wishlist} title="" type="movie" />
               </div>
             </div>
-            <div className="rounded-2xl md:rounded-3xl border border-white/10 ">
+            <div className="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden">
               <div className=" sm:p-6 md:p-8 border-b border-white/10">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0">
                   <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12  rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
-                      <i class="fa-solid fa-clock text-3xl bg-white/10 text-textColor sm:p-3 sm:pe-10  rounded-2xl"></i>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                      <i className="fa-solid fa-clock text-3xl bg-white/10 text-textColor sm:p-3 sm:pe-10 rounded-2xl"></i>
                     </div>
                     <div>
                       <h2 className="text-xl sm:text-3xl font-bold text-white">
                         Watch Later
                       </h2>
+                      <p className="text-gray-400 text-sm sm:text-base">
+                        Movies you saved to watch later
+                      </p>
                     </div>
                   </div>
+                  <div className="bg-blue-500/20 backdrop-blur-sm text-blue-300 px-3 py-1 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold border border-blue-500/30 w-fit sm:w-auto">
+                    {watchLater?.length || 0} movies
+                  </div>
                 </div>
+              </div>
+              <div className="px-10">
+                <CardSlider Media={watchLater} title="" type="movie" />
               </div>
             </div>
           </div>
@@ -135,9 +147,9 @@ export default function Profile() {
           <div className="rounded-2xl md:rounded-3xl border border-white/10 ">
             <div className="p-4 sm:p-6 border-b border-white/10">
               <div className="flex items-center gap-2 sm:gap-3">
-                 <div className="w-10 h-10 sm:w-12 sm:h-12  rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
-                      <i class="fa-solid fa-chart-line text-xl bg-primary-600 text-textColor p-3 pe-8 rounded-2xl"></i>
-                    </div>
+                <div className="w-10 h-10 sm:w-12 sm:h-12  rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                  <i class="fa-solid fa-chart-line text-xl bg-primary-600 text-textColor p-3 pe-8 rounded-2xl"></i>
+                </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold text-white">
                     Trending Now
@@ -152,8 +164,6 @@ export default function Profile() {
               <ProfileSideBar Media={trending} title="" type="movie" />
             </div>
           </div>
-
-        
         </div>
       </div>
     </div>

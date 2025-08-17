@@ -106,30 +106,95 @@ export default function Navbar() {
               <i className="fa-regular fa-circle-user text-gray-200"></i>
             </button>
 
-            {showDropdown && (
-              <div className="absolute -left-10 mt-2 bg-bgColor rounded shadow-lg py-2 w-32 z-50">
+              {showDropdown && (
+              <div className="absolute -right-20 mt-3 bg-bgColor/80  rounded-lg shadow-2xl border border-gray-700/50 py-2 w-48 z-50">
                 {token ? (
                   <>
-                    <Link
-                      to="/profile"
-                      className="block px-4 text-grayColor py-2 text-sm hover:text-textColor"
-                    >
-                      View Profile
-                    </Link>
-                    <button
-                      onClick={logout}
-                      className="block w-full text-left px-4 text-grayColor py-2 text-sm hover:text-textColor"
-                    >
-                      Logout
-                    </button>
+                    <div className="px-4 py-3 border-b border-gray-700/50">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
+                          <i className="fa-solid fa-user text-white text-sm"></i>
+                        </div>
+                        <div>
+                          <p className="text-textColor text-sm font-medium">
+                            Welcome back!
+                          </p>
+                          
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="py-1">
+                      <Link
+                        to="/profile"
+                        className="flex items-center px-4 py-2 text-grayColor hover:text-textColor  transition-all duration-150 group"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setShowDropdown(false);
+                        }}
+                      >
+                        <i className="fa-regular fa-user w-4 text-center mr-3 group-hover:text-primary-500 transition-all duration-150"></i>
+                        <span className="text-sm">View Profile</span>
+                      </Link>
+
+                      <Link
+                        to="/Favorite"
+                        className="flex items-center px-4 py-2 text-grayColor hover:text-textColor transition-all duration-150 group"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        <i className="fa-regular fa-heart w-4 text-center mr-3 group-hover:text-primary-500 transition-all duration-150"></i>
+                        <span className="text-sm">My Favorites</span>
+                      </Link>
+
+                      <Link
+                        to="/watchlater"
+                        className="flex items-center px-4 py-2 text-grayColor hover:text-textColor transition-all duration-150 group"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        <i className="fa-regular fa-circle-play w-4 text-center mr-3 group-hover:text-primary-500 transition-all duration-150"></i>
+                        <span className="text-sm">Watch Later</span>
+                      </Link>
+
+                      <hr className="my-1 border-gray-700/50" />
+
+                      <button
+                        onClick={() => {
+                          logout();
+                          setMobileMenuOpen(false);
+                          setShowDropdown(false);
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-grayColor hover:text-primary-400  transition-all duration-150 group"
+                      >
+                        <i className="fa-solid fa-sign-out-alt w-3 text-center mr-3 group-hover:text-primary-400 transition-all duration-150"></i>
+                        <span className="text-sm">Logout</span>
+                      </button>
+                    </div>
                   </>
                 ) : (
-                  <Link
-                    to="/login"
-                    className="block px-4 text-grayColor py-2 text-sm hover:text-textColor"
-                  >
-                    Login
-                  </Link>
+                  <div className="py-1">
+                    <Link
+                      to="/login"
+                      className="flex items-center px-4 py-2 text-grayColor hover:text-textColor hover:bg-gray-800/50 transition-all duration-150 group"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setShowDropdown(false);
+                      }}
+                    >
+                      <i className="fa-solid fa-sign-in-alt w-3 text-center mr-3 group-hover:text-primary-400 transition-all duration-150"></i>
+                      <span className="text-sm">Sign In</span>
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="flex items-center px-4 py-2 text-grayColor hover:text-textColor hover:bg-gray-800/50 transition-all duration-150 group"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setShowDropdown(false);
+                      }}
+                    >
+                      <i className="fa-solid  fa-user text-center mr-3 group-hover:text-primary-400 transition-all duration-150"></i>
+                      <span className="text-sm">Sign Up</span>
+                    </Link>
+                  </div>
                 )}
               </div>
             )}

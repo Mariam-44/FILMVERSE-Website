@@ -17,13 +17,14 @@ import NotAuth from "./components/NotAuth/NotAuth";
 import NotFound from "./pages/NotFound/NotFound";
 import Genres from "./pages/Genres/Genres";
 
-// ✅ AOS import
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { WatchLaterProvider } from "./context/WatchLater.Context";
+import WatchLater from "./pages/WatchLater/WatchLater";
 
 function App() {
-  // ✅ Initialize AOS on mount
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -40,6 +41,7 @@ function App() {
         { path: "CardDetails/:type/:id", element: <CardDetails /> },
         { path: "ViewAll", element: <ViewAll /> },
         { path: "Favorite", element: <Favorite /> },
+        { path: "watchlater", element: <WatchLater /> },
         { path: "profile", element: <Profile /> },
         { path: "movies", element: <Movies /> },
         { path: "Tvshows", element: <TvShows /> },
@@ -56,7 +58,9 @@ function App() {
   return (
     <UserProvider>
       <FavoriteProvider>
-        <RouterProvider router={router} />
+        <WatchLaterProvider>
+          <RouterProvider router={router} />
+        </WatchLaterProvider>   
       </FavoriteProvider>
     </UserProvider>
   );

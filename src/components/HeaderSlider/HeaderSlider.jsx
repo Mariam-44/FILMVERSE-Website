@@ -11,6 +11,7 @@ export default function PopularMoviesSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   const token = import.meta.env.VITE_TMDB_TOKEN;
+  
 const headers = {
     accept: "application/json",
     Authorization: `Bearer ${token}`,
